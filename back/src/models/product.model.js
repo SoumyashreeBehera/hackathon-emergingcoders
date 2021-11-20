@@ -1,25 +1,24 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    phnNo: { type: Number, required: true },
-    address: {
-      at: { type: String, required: true },
-      post: { type: String, required: true },
-      pin: { type: Number, required: true },
-      houseNo: { type: Number, required: true },
-      landMark: { type: String, required: true },
-      dist: { type: String, required: true },
-      state: { type: String, required: true },
+    {
+        name: { type: String, required: true },
+        email: { type: String, required: true },
+        phone: { type: Number, required: true },
+        address: {
+            at: { type: String, required: true },
+            pincode: { type: Number, required: true },
+            city: { type: String, required: true },
+            state: { type: String, required: true },
+        },
+        warehouseStatus: {type: Boolean, default: false},
+        onwayStatus: {type: Boolean, default: false},
+        deliveredStatus: {type: Boolean, default: false}
     },
-    status: { type: String, required: true },
-  },
-  {
-    versionKey: false,
-    timestamps: true,
-  }
+    {
+        versionKey: false,
+        timestamps: true,
+    }
 );
 
 module.exports = mongoose.model("product", productSchema);
