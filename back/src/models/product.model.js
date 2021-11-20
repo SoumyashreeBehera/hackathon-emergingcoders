@@ -7,14 +7,13 @@ const productSchema = new mongoose.Schema(
     phnNo: { type: Number, required: true },
     address: {
       at: { type: String, required: true },
-      post: { type: String, required: true },
       pin: { type: Number, required: true },
-      houseNo: { type: Number, required: true },
-      landMark: { type: String, required: true },
       dist: { type: String, required: true },
       state: { type: String, required: true },
     },
-    status: { type: String, required: true },
+    deliveryStatus: { type: Boolean, default: false },
+    warehouseStatus: { type: Boolean, default: false },
+    onwayStatus: { type: Boolean, default: false },
   },
   {
     versionKey: false,
