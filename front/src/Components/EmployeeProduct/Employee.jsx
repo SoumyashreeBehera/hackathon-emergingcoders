@@ -1,28 +1,44 @@
 import React, { useEffect, useState } from "react";
+import { GetLocal } from "../../utils/LocalStorage";
 import { getAll, patchOne } from "../../utils/Request";
 import styles from "./Employee.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Employee() {
   const [data, setData] = useState([]);
+  const [tokenData, setTokenData] = useState("");
+  let navigate = useNavigate();
 
   useEffect(() => {
-    fun();
+    let token = checkLocalStorage();
+    fun(token);
   }, []);
-  async function fun() {
-    let objs = await getAll();
-    console.log(objs);
+
+  function checkLocalStorage() {
+    let token = GetLocal();
+    if (token !== "") {
+      setTokenData(token);
+      return token;
+    } else {
+      setTokenData("");
+      navigate("/login");
+    }
+  }
+
+  async function fun(token) {
+    let objs = await getAll(token);
     setData(objs.data);
   }
   const handleStatusChange = async (id) => {
     let changeData = { onwayStatus: true };
-    let data = await patchOne(id, changeData);
-    fun();
+    let data = await patchOne(id, changeData, tokenData);
+    fun(tokenData);
   };
 
   const handleDeliveryStatusChange = async (id) => {
     let changeData = { deliveryStatus: true };
-    let data = await patchOne(id, changeData);
-    fun();
+    let data = await patchOne(id, changeData, tokenData);
+    fun(tokenData);
   };
 
   return (
